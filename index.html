@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CEDRO | Alvenaria e Carpintaria — Governador Valadares e Vale do Aço</title>
+<meta name="description" content="Alvenaria e carpintaria de alto padrão em Governador Valadares. Deck, pergolado, telhados, painéis ripados, alvenaria estrutural, pisos, azulejos, efeitos 3D e muito mais. Atendemos todo o Vale do Aço."/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─── TOKENS ─────────────────────────────── */
+:root {
+  --forest:   #1a3c34;
+  --forest-2: #0f2820;
+  --cedar:    #c5a46e;
+  --cedar-2:  #a07840;
+  --cream:    #faf6ef;
+  --sand:     #f0e8d8;
+  --ink:      #0d1a14;
+  --muted:    #6b7a72;
+}
+
+/* ─── BASE ────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #fff;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* subtle grain */
+body::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 9000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  opacity: .5;
+}
+
+/* ─── TYPOGRAPHY ──────────────────────────── */
+.serif { font-family: 'Lora', Georgia, serif; }
+h1, h2, h3 { font-family: 'Lora', Georgia, serif; }
+
+/* ─── NAV ────────────────────────────────── */
+#nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  transition: box-shadow .3s;
+}
+#nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.07); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  height: 66px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+.nav-logo-mark {
+  width: 36px; height: 36px; background: var(--forest);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nav-logo-mark svg { width: 20px; height: 20px; }
+.nav-logo-name {
+  font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 700;
+  color: var(--forest); letter-spacing: -.02em;
+}
+.nav-logo-sub {
+  font-size: .7rem; color: var(--muted); letter-spacing: .06em; display: block; margin-top: 1px;
+}
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a {
+  font-size: .875rem; font-weight: 500; color: #4a5550;
+  text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--forest); }
+.nav-ctas { display: flex; align-items: center; gap: .6rem; }
+.btn-wa-nav {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .5rem 1rem; border-radius: 8px;
+  border: 1.5px solid #d1d5db; font-size: .82rem; font-weight: 600;
+  color: #374151; text-decoration: none; transition: all .2s;
+}
+.btn-wa-nav:hover { border-color: #22c55e; color: #15803d; background: #f0fdf4; }
+.btn-cta-nav {
+  padding: .6rem 1.25rem; border-radius: 8px;
+  background: var(--forest); color: #fff;
+  font-size: .82rem; font-weight: 600; border: none; cursor: pointer;
+  transition: background .2s;
+}
+.btn-cta-nav:hover { background: var(--forest-2); }
+
+/* ─── HERO ───────────────────────────────── */
+.hero-wrap {
+  max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem 4.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 100px; padding: .3rem .9rem;
+  font-size: .72rem; font-weight: 600; color: #15803d;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+  animation: livepulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+}
+@keyframes livepulse {
+  0%,100% { box-shadow: 0 0 0 2px rgba(34,197,94,.2); }
+  50%      { box-shadow: 0 0 0 5px rgba(34,197,94,.05); }
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 700; line-height: 1.06; letter-spacing: -.03em;
+  color: var(--ink); margin-bottom: 1.1rem;
+}
+.hero h1 .accent { color: var(--forest); font-style: italic; }
+.hero-sub {
+  font-size: 1.05rem; color: #4a5550; line-height: 1.75;
+  font-weight: 400; max-width: 460px; margin-bottom: 2rem;
+}
+.hero-btns { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 1.75rem; background: var(--forest); color: #fff;
+  border-radius: 10px; font-size: .95rem; font-weight: 700;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: 0 2px 12px rgba(26,60,52,.25);
+  transition: all .2s;
+}
+.btn-primary:hover { background: var(--forest-2); transform: translateY(-1px); box-shadow: 0 5px 18px rgba(26,60,52,.3); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 1.5rem; border: 1.5px solid #d1d5db;
+  border-radius: 10px; font-size: .95rem; font-weight: 600;
+  background: #fff; color: #374151; cursor: pointer;
+  text-decoration: none; transition: all .2s;
+}
+.btn-secondary:hover { border-color: var(--forest); color: var(--forest); }
+.hero-trust { display: flex; flex-wrap: wrap; gap: .5rem; }
+.trust-chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .75rem; font-weight: 500; color: #4a5550;
+  background: var(--cream); border: 1px solid #e5e0d5;
+  border-radius: 100px; padding: .3rem .75rem;
+}
+.hero-rating { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.25rem; }
+.stars { color: #f59e0b; letter-spacing: .05em; }
+.hero-scarcity {
+  margin-top: 1.25rem; padding: .75rem 1rem;
+  background: #fff7ed; border: 1px solid #fed7aa;
+  border-radius: 10px; display: flex; align-items: center; gap: .6rem;
+  font-size: .82rem; color: #9a3412; font-weight: 500;
+}
+
+/* Hero visual */
+.hero-visual { position: relative; }
+.hero-img-frame {
+  border-radius: 20px; overflow: hidden;
+  aspect-ratio: 4/3; background: var(--sand);
+  box-shadow: 0 20px 60px rgba(0,0,0,.1);
+}
+.hero-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-float-review {
+  position: absolute; bottom: -1.25rem; left: -1.25rem;
+  background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 16px; padding: .9rem 1.1rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,.1);
+  display: flex; align-items: flex-start; gap: .65rem;
+  max-width: 260px;
+}
+.review-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--forest); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .8rem; flex-shrink: 0;
+}
+.hero-float-years {
+  position: absolute; top: -1rem; right: -1rem;
+  width: 74px; height: 74px; border-radius: 50%;
+  background: var(--cedar); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-weight: 700; text-align: center;
+  box-shadow: 0 4px 16px rgba(197,164,110,.4);
+}
+
+/* ─── TRUST BAR ──────────────────────────── */
+.trust-bar {
+  border-top: 1px solid #f0ece4; border-bottom: 1px solid #f0ece4;
+  background: var(--cream);
+}
+.trust-bar-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  display: grid; grid-template-columns: repeat(4,1fr);
+}
+.trust-bar-item {
+  padding: 1.35rem 1rem; border-right: 1px solid #e5e0d5; text-align: center;
+}
+.trust-bar-item:last-child { border-right: none; }
+.trust-num {
+  font-family: 'Lora', serif; font-size: 1.85rem; font-weight: 700;
+  color: var(--forest); display: block; line-height: 1;
+}
+.trust-lbl { font-size: .72rem; color: var(--muted); margin-top: .25rem; display: block; }
+
+/* ─── SECTION COMMONS ─────────────────────── */
+.section-pad { padding: 6rem 0; }
+.section-pad-sm { padding: 4rem 0; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.eyebrow {
+  font-size: .68rem; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--cedar-2); display: block; margin-bottom: .75rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700; letter-spacing: -.03em; line-height: 1.1; color: var(--ink);
+}
+
+/* ─── PROBLEM ────────────────────────────── */
+.problem-bg { background: #f8f5ef; }
+.problem-items { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+.problem-item {
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 1.5rem; background: #fff;
+  border: 1px solid #ede8df; border-radius: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.problem-item:hover { border-color: var(--cedar); box-shadow: 0 4px 20px rgba(0,0,0,.05); }
+.problem-num {
+  font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 700;
+  color: var(--cedar); line-height: 1; flex-shrink: 0; width: 2rem;
+}
+.problem-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: .35rem; }
+.problem-desc { font-size: .9rem; color: #5a6660; line-height: 1.65; }
+.problem-fix {
+  display: inline-block; margin-top: .5rem;
+  font-size: .75rem; font-weight: 600; color: var(--forest);
+  background: #f0f9f5; border: 1px solid #a7f3d0;
+  border-radius: 100px; padding: .2rem .7rem;
+}
+
+/* ─── SOLUTION ───────────────────────────── */
+.solution-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  margin-top: 3rem;
+}
+.solution-text { font-size: .95rem; color: #4a5550; line-height: 1.8; margin-top: 1rem; }
+.solution-compare {
+  background: var(--forest); border-radius: 18px;
+  padding: 2rem; color: #fff;
+}
+.compare-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .85rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
+  font-size: .88rem;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-feature { color: rgba(255,255,255,.7); font-weight: 400; }
+.compare-cedar { color: #86efac; font-weight: 700; }
+.compare-other { color: rgba(255,255,255,.3); font-size: .8rem; }
+.compare-header {
+  display: flex; justify-content: space-between;
+  margin-bottom: 1rem; padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+.compare-header span { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.compare-header .ch-cedro { color: var(--cedar); }
+.compare-header .ch-other { color: rgba(255,255,255,.35); }
+
+/* ─── BENEFITS ───────────────────────────── */
+.benefits-bg { background: var(--forest); }
+.benefits-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 1px; background: rgba(255,255,255,.1); margin-top: 3rem;
+  border-radius: 16px; overflow: hidden;
+}
+.benefit-item {
+  background: rgba(255,255,255,.04);
+  padding: 2rem; transition: background .25s;
+}
+.benefit-item:hover { background: rgba(255,255,255,.09); }
+.benefit-icon {
+  width: 44px; height: 44px; background: rgba(255,255,255,.08);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+}
+.benefit-icon svg { width: 22px; height: 22px; }
+.benefit-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .4rem; }
+.benefit-desc { font-size: .875rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.benefit-quote {
+  margin-top: .85rem; padding: .75rem;
+  background: rgba(255,255,255,.07); border-radius: 10px;
+  font-style: italic; font-size: .82rem; color: rgba(255,255,255,.75);
+}
+.benefit-quote-author { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: .35rem; font-style: normal; }
+
+/* ─── PROCESS ────────────────────────────── */
+.process-bg { background: var(--cream); }
+.process-steps {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1.5rem; position: relative; margin-top: 3rem;
+}
+.process-steps::before {
+  content: ''; position: absolute;
+  top: 23px; left: 12.5%; right: 12.5%; height: 1px;
+  background: linear-gradient(90deg, transparent, #d4cfc6 20%, #d4cfc6 80%, transparent);
+}
+.proc-step { text-align: center; position: relative; }
+.proc-dot {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #fff; border: 1.5px solid #d4cfc6;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.1rem; position: relative; z-index: 1;
+  font-family: 'Lora', serif; font-weight: 700; font-size: .95rem;
+  color: var(--forest); transition: all .25s;
+}
+.proc-step:hover .proc-dot { background: var(--forest); color: #fff; border-color: var(--forest); }
+.proc-title { font-weight: 700; font-size: .95rem; color: var(--ink); margin-bottom: .4rem; }
+.proc-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── GALLERY ────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 10px; margin-top: 2.5rem;
+  border-radius: 18px; overflow: hidden;
+}
+.gallery-grid .g0 { grid-row: span 2; }
+.gallery-item { position: relative; overflow: hidden; background: var(--sand); cursor: pointer; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .45s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-cap {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: .9rem 1rem;
+  background: linear-gradient(to top, rgba(10,25,20,.85) 0%, transparent 100%);
+  opacity: 0; transition: opacity .3s;
+}
+.gallery-item:hover .gallery-cap { opacity: 1; }
+.gallery-cap-title { font-size: .78rem; font-weight: 700; color: #fff; }
+.gallery-cap-loc { font-size: .7rem; color: rgba(255,255,255,.6); margin-top: 1px; }
+
+/* ─── TESTIMONIALS ───────────────────────── */
+.t-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 2.5rem; }
+.t-card {
+  background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 16px; padding: 1.6rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.t-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.07); }
+.t-stars { color: #f59e0b; font-size: .82rem; letter-spacing: .06em; margin-bottom: .75rem; }
+.t-quote { font-family: 'Lora', serif; font-size: 2rem; color: #d1cdc6; line-height: .3; display: block; margin-bottom: .6rem; }
+.t-text { font-size: .88rem; color: #4a5550; line-height: 1.72; font-style: italic; margin-bottom: 1.1rem; }
+.t-author { display: flex; align-items: center; gap: .65rem; }
+.t-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--forest); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .78rem; flex-shrink: 0;
+}
+.t-name { font-size: .875rem; font-weight: 700; color: var(--ink); display: block; }
+.t-role { font-size: .72rem; color: var(--muted); display: block; margin-top: 1px; }
+
+/* ─── FAQ ────────────────────────────────── */
+.faq-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 4rem; align-items: start; }
+.faq-list { display: flex; flex-direction: column; gap: .6rem; }
+.faq-item {
+  background: #fff; border: 1.5px solid #e5e7eb;
+  border-radius: 14px; overflow: hidden; transition: border-color .2s;
+}
+.faq-item.open { border-color: var(--forest); }
+.faq-btn {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 1.3rem; text-align: left; gap: 1rem;
+}
+.faq-q { font-size: .95rem; font-weight: 700; color: var(--ink); }
+.faq-icon {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #f1f5f2; border: 1px solid #e5e7eb;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--forest); font-size: 1rem;
+  transition: all .25s;
+}
+.faq-item.open .faq-icon { background: var(--forest); color: #fff; transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .3s; padding: 0 1.3rem; }
+.faq-item.open .faq-a { max-height: 240px; padding-bottom: 1.1rem; }
+.faq-a p { font-size: .875rem; color: #4a5550; line-height: 1.7; }
+
+/* ─── FORM / CTA SECTION ─────────────────── */
+.cta-bg {
+  background: var(--forest);
+  position: relative; overflow: hidden;
+}
+.cta-bg::before {
+  content: ''; position: absolute;
+  top: -30%; right: -15%; width: 60%; height: 150%;
+  background: radial-gradient(ellipse, rgba(197,164,110,.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1.3fr; gap: 4.5rem; align-items: start;
+}
+.cta-left .eyebrow { color: rgba(255,255,255,.4); }
+.cta-title { font-size: clamp(1.7rem, 2.5vw, 2.4rem); font-weight: 700; color: #fff; margin: .5rem 0 1rem; }
+.cta-sub { font-size: .95rem; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 2rem; }
+.cta-contacts { display: flex; flex-direction: column; gap: .8rem; }
+.cta-contact-item { display: flex; align-items: center; gap: .75rem; }
+.cta-ci-icon {
+  width: 34px; height: 34px; background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cta-ci-icon svg { width: 15px; height: 15px; stroke: var(--cedar); fill: none; stroke-width: 1.8; stroke-linecap: round; }
+.cta-ci-text { font-size: .8rem; color: rgba(255,255,255,.6); letter-spacing: .02em; }
+.wa-direct-btn {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: rgba(37,211,102,.12); border: 1.5px solid rgba(37,211,102,.3);
+  color: #4ade80; padding: .7rem 1.2rem; border-radius: 10px;
+  font-size: .875rem; font-weight: 700; text-decoration: none;
+  transition: all .2s; margin-top: 1.75rem;
+}
+.wa-direct-btn:hover { background: rgba(37,211,102,.2); border-color: rgba(37,211,102,.5); }
+.wa-direct-btn svg { width: 18px; height: 18px; fill: #4ade80; flex-shrink: 0; }
+
+/* Form card */
+.form-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px; padding: 2.25rem;
+}
+.form-card-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: .25rem; }
+.form-card-sub { font-size: .8rem; color: rgba(255,255,255,.45); margin-bottom: 1.6rem; }
+.form-section-label {
+  font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  display: flex; align-items: center; gap: .75rem; margin: 1.35rem 0 .85rem;
+}
+.form-section-label::before, .form-section-label::after {
+  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.1);
+}
+.fg { display: flex; flex-direction: column; gap: .35rem; }
+.fg label { font-size: .65rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.fg input, .fg select, .fg textarea {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 9px; padding: .75rem .95rem;
+  color: #fff; font-family: 'Inter', sans-serif; font-size: .88rem;
+  outline: none; width: 100%; appearance: none; transition: border-color .2s, background .2s;
+}
+.fg input::placeholder, .fg textarea::placeholder { color: rgba(255,255,255,.22); }
+.fg select option { background: #1a3c34; color: #fff; }
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: rgba(197,164,110,.7); background: rgba(255,255,255,.1);
+}
+.fg textarea { resize: vertical; min-height: 88px; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+.btn-submit {
+  width: 100%; margin-top: .5rem;
+  background: var(--cedar); color: #fff;
+  padding: .95rem 1.5rem; border-radius: 10px; border: none; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: .55rem;
+  transition: all .2s; box-shadow: 0 2px 10px rgba(197,164,110,.35);
+}
+.btn-submit:hover { background: #b8903a; transform: translateY(-1px); box-shadow: 0 5px 18px rgba(197,164,110,.45); }
+.form-foot { text-align: center; font-size: .72rem; color: rgba(255,255,255,.35); margin-top: .6rem; }
+
+/* ─── FOOTER ─────────────────────────────── */
+footer {
+  background: #0f1f1a; border-top: 1px solid rgba(255,255,255,.06);
+  padding: 2rem 0;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: .72rem; color: rgba(255,255,255,.3); letter-spacing: .05em; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: .72rem; color: rgba(255,255,255,.3); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: rgba(255,255,255,.7); }
+
+/* ─── FLOATING WA ────────────────────────── */
+.wa-fab {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 5px 20px rgba(37,211,102,.4), 0 2px 8px rgba(0,0,0,.15);
+  transition: transform .2s;
+}
+.wa-fab:hover { transform: scale(1.08); }
+.wa-fab svg { width: 29px; height: 29px; position: relative; z-index: 1; }
+.wa-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: #25D366; opacity: .5;
+  animation: waring 2.4s ease-out infinite;
+}
+@keyframes waring {
+  0%   { transform: scale(1);   opacity: .5; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+.wa-tip {
+  position: absolute; right: calc(100% + .7rem); top: 50%;
+  transform: translateY(-50%);
+  background: var(--forest-2); color: #fff;
+  font-size: .76rem; font-weight: 600; white-space: nowrap;
+  padding: .45rem .85rem; border-radius: 8px;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+}
+.wa-tip::after {
+  content: ''; position: absolute; left: 100%; top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent; border-left-color: var(--forest-2);
+}
+.wa-fab:hover .wa-tip { opacity: 1; }
+
+/* ─── REVEAL ─────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .08s; }
+.d2 { transition-delay: .16s; }
+.d3 { transition-delay: .24s; }
+.d4 { transition-delay: .32s; }
+
+/* ─── SERVICE PILLS ──────────────────────────────── */
+.svc-pill {
+  display: flex; align-items: center; gap: .45rem;
+  background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px; padding: .5rem .8rem;
+  font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.85);
+  transition: background .2s; cursor: default;
+}
+.svc-pill:hover { background: rgba(255,255,255,.15); }
+.svc-pill-light {
+  background: var(--white) !important; border-color: var(--border) !important; color: var(--ink) !important;
+}
+.svc-pill-light:hover { background: var(--cream) !important; border-color: var(--cedar) !important; }
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media (max-width: 1024px) {
+  #servicos .reveal > div { grid-template-columns: 1fr !important; }
+  .hero-wrap { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .solution-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2,1fr); }
+  .process-steps::before { display: none; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px 200px; }
+  .gallery-grid .g0 { grid-row: span 1; }
+  .t-grid { grid-template-columns: 1fr; }
+  .faq-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cta-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .trust-bar-inner { grid-template-columns: repeat(2,1fr); }
+  .trust-bar-item:nth-child(2) { border-right: none; }
+  .trust-bar-item:nth-child(3) { border-top: 1px solid #e5e0d5; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .gallery-item { height: 200px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .fg-row { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .hero-wrap { padding: 3rem 1.25rem 3rem; }
+  .wrap { padding: 0 1.25rem; }
+  .section-pad { padding: 4rem 0; }
+  .trust-bar-inner { grid-template-columns: repeat(2,1fr); }
+  .form-card { padding: 1.5rem 1.25rem; }
+  .wa-tip { display: none; }
+}
+
+/* ─── PORTAL OVERLAY ───────────────────────────────────────────── */
+#portal-overlay{
+  position:fixed;inset:0;z-index:9000;
+  background:#f4f1ec;
+  transform:translateX(100%);
+  transition:transform .42s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+#portal-overlay.open{transform:translateX(0)}
+
+/* portal topbar */
+.ptopbar{
+  background:var(--forest);height:58px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1.5rem;position:sticky;top:0;z-index:10;
+}
+.ptopbar-logo{display:flex;align-items:center;gap:.55rem}
+.ptopbar-mark{width:30px;height:30px;background:rgba(255,255,255,.12);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.ptopbar-name{font-family:"Lora",serif;font-size:.9rem;font-weight:700;color:#fff}
+.ptopbar-sub{font-size:.58rem;color:rgba(255,255,255,.5);letter-spacing:.06em;display:block}
+.ptopbar-right{display:flex;align-items:center;gap:.65rem}
+.ptopbar-av{width:30px;height:30px;border-radius:50%;background:var(--cedar);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;flex-shrink:0}
+.ptopbar-name-user{font-size:.8rem;color:rgba(255,255,255,.8)}
+.btn-p-sm{padding:.38rem .85rem;border-radius:7px;font-family:"Inter",sans-serif;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-p-logout{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)}
+.btn-p-logout:hover{background:rgba(255,255,255,.18)}
+.btn-p-back{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.4rem;
+}
+.btn-p-back:hover{background:rgba(255,255,255,.18)}
+.btn-p-toggle{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8)}
+.btn-p-toggle:hover{background:rgba(255,255,255,.18)}
+
+/* portal body */
+.pbody{flex:1;max-width:1100px;margin:0 auto;width:100%;padding:1.75rem 1.25rem 3rem;overflow-y:auto}
+
+/* screens inside portal */
+.pscreen{display:none}
+.pscreen.active{display:block}
+
+/* login card inside portal */
+.plogin-wrap{min-height:calc(100vh - 58px);display:flex;align-items:center;justify-content:center;padding:2rem 1rem}
+.plogin-card{background:#fff;border-radius:20px;padding:2.5rem 2.25rem;width:100%;max-width:400px;box-shadow:0 16px 48px rgba(13,26,20,.12)}
+.plogin-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#f3f4f6;border-radius:10px;padding:4px;margin-bottom:1.4rem}
+.plogin-tab{padding:.5rem;border-radius:7px;border:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.82rem;font-weight:600;color:#6b7280;background:transparent;transition:all .2s}
+.plogin-tab.active{background:#fff;color:var(--forest);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.btn-google-p{width:100%;padding:.82rem 1rem;border:1.5px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.65rem;font-size:.9rem;font-weight:600;color:#374151;transition:all .2s;margin-bottom:1.1rem;font-family:"Inter",sans-serif}
+.btn-google-p:hover{background:#f9fafb;border-color:#d1d5db}
+.p-fg{display:flex;flex-direction:column;gap:.32rem;margin-bottom:.8rem}
+.p-fg label{font-size:.68rem;font-weight:600;color:#6b7280;letter-spacing:.08em;text-transform:uppercase}
+.p-fg input{padding:.72rem .95rem;border:1.5px solid #e5e7eb;border-radius:9px;font-family:"Inter",sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:all .2s;width:100%}
+.p-fg input:focus{border-color:var(--forest);box-shadow:0 0 0 3px rgba(26,60,52,.08)}
+.btn-login-p{width:100%;padding:.82rem;border-radius:10px;background:var(--forest);color:#fff;border:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.9rem;font-weight:700;transition:all .2s;margin-top:.15rem}
+.btn-login-p:hover{background:var(--forest2,#0f2820);transform:translateY(-1px)}
+.p-err{font-size:.75rem;color:#ef4444;margin-top:.5rem;text-align:center;min-height:.9rem}
+.p-divider{display:flex;align-items:center;gap:.75rem;font-size:.72rem;color:#9ca3af;margin-bottom:1.1rem}
+.p-divider::before,.p-divider::after{content:"";flex:1;height:1px;background:#e5e7eb}
+
+/* dashboard components */
+.pwelcome{background:linear-gradient(135deg,var(--forest),#2d5a4e);border-radius:16px;padding:1.75rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.pwelcome::before{content:"";position:absolute;top:-30%;right:-5%;width:50%;height:160%;background:radial-gradient(ellipse,rgba(197,164,110,.2) 0%,transparent 65%)}
+.pwelcome-left{position:relative;z-index:1}
+.pwelcome-greeting{font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.25rem}
+.pwelcome-name{font-family:"Lora",serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.pwelcome-project{font-size:.82rem;color:rgba(255,255,255,.6)}
+.pwelcome-right{position:relative;z-index:1;text-align:right}
+.pwelcome-pct{font-family:"Lora",serif;font-size:2.4rem;font-weight:700;color:var(--cedar);line-height:1}
+.pwelcome-lbl{font-size:.68rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem}
+.pwelcome-bar{height:5px;background:rgba(255,255,255,.15);border-radius:100px;margin-top:.55rem;min-width:140px}
+.pwelcome-fill{height:100%;background:var(--cedar);border-radius:100px;transition:width 1.2s ease}
+.pgrid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.pgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.pcard{background:#fff;border-radius:12px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(13,26,20,.06);overflow:hidden}
+.pcard-hd{padding:1rem 1.4rem .75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.pcard-title{font-size:.875rem;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:.5rem}
+.pcard-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pcard-body{padding:1.2rem 1.4rem}
+.pbadge{font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .6rem;border-radius:100px}
+.pbg-green{background:#dcfce7;color:#166534}
+.pbg-blue{background:#dbeafe;color:#1e40af}
+.pbg-amber{background:#fef9c3;color:#854d0e}
+.pbg-gray{background:#f3f4f6;color:#6b7280}
+.pstat-card{text-align:center;padding:1.2rem 1rem}
+.pstat-ico{width:38px;height:38px;border-radius:10px;margin:0 auto .65rem;display:flex;align-items:center;justify-content:center}
+.pstat-n{font-family:"Lora",serif;font-size:1.65rem;font-weight:700;color:var(--ink);display:block;line-height:1}
+.pstat-l{font-size:.7rem;color:var(--muted);margin-top:.25rem;display:block}
+.pq-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:.875rem}
+.pq-row:last-child{border-bottom:none;font-weight:700;font-size:.95rem;padding-top:.75rem}
+.pq-lbl{color:var(--muted)}
+.pq-val{font-weight:600;color:var(--ink)}
+.pq-total{color:var(--forest);font-size:1.05rem}
+.ptl{display:flex;flex-direction:column;gap:0}
+.ptl-item{display:flex;gap:.9rem;position:relative}
+.ptl-item:not(:last-child)::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:1.5px;background:var(--border);z-index:0}
+.ptl-dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;border:2px solid;font-size:.65rem;font-weight:700}
+.ptl-done{background:#dcfce7;border-color:#86efac;color:#166534}
+.ptl-active{background:var(--forest);border-color:var(--forest);color:#fff}
+.ptl-next{background:#fff;border-color:var(--border);color:var(--muted)}
+.ptl-content{padding:.1rem 0 1.1rem;flex:1}
+.ptl-ttl{font-size:.875rem;font-weight:700;color:var(--ink)}
+.ptl-date{font-size:.7rem;color:var(--muted);margin-top:.12rem}
+.ptl-note{font-size:.75rem;color:#4a5550;margin-top:.3rem;line-height:1.5;background:var(--cream);padding:.45rem .65rem;border-radius:7px}
+.pphases{display:flex;flex-direction:column;gap:.7rem}
+.pph-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
+.pph-name{font-size:.82rem;font-weight:600;color:var(--ink)}
+.pph-pct{font-size:.73rem;font-weight:700;color:var(--forest)}
+.pph-bg{height:7px;background:var(--sand);border-radius:100px;overflow:hidden}
+.pph-bar{height:100%;border-radius:100px;transition:width 1.2s ease}
+.pbar-g{background:linear-gradient(90deg,#4ade80,#22c55e)}
+.pbar-f{background:linear-gradient(90deg,#2d5a4e,var(--forest))}
+.pbar-a{background:linear-gradient(90deg,#fbbf24,#f59e0b)}
+.pbar-e{background:var(--border)}
+.pmsgs{display:flex;flex-direction:column;gap:.65rem;max-height:300px;overflow-y:auto;padding:.25rem 0}
+.pmsg{padding:.8rem .95rem;border-radius:10px;font-size:.85rem;line-height:1.6}
+.pmsg-from{font-size:.68rem;font-weight:700;margin-bottom:.28rem;display:flex;justify-content:space-between}
+.pmsg-admin{background:var(--cream);border:1px solid var(--border)}
+.pmsg-admin .pmsg-fname{color:var(--forest)}
+.pmsg-client{background:var(--forest);color:rgba(255,255,255,.88);margin-left:2rem}
+.pmsg-client .pmsg-from{color:rgba(255,255,255,.45)}
+.pmsg-row{display:flex;gap:.5rem;margin-top:.75rem}
+.pmsg-inp{flex:1;padding:.62rem .85rem;border:1.5px solid var(--border);border-radius:9px;font-family:"Inter",sans-serif;font-size:.85rem;outline:none;transition:border-color .2s}
+.pmsg-inp:focus{border-color:var(--forest)}
+.pmsg-btn{padding:.62rem 1rem;background:var(--forest);color:#fff;border:none;border-radius:9px;cursor:pointer;font-size:.8rem;font-weight:600;font-family:inherit;transition:background .2s;display:flex;align-items:center;gap:.35rem}
+.pmsg-btn:hover{background:var(--forest-2)}
+.pempty{text-align:center;padding:2rem 1rem;color:var(--muted)}
+.pempty-icon{font-size:1.75rem;margin-bottom:.6rem}
+.pempty p{font-size:.875rem}
+.padmin-badge{display:inline-flex;align-items:center;gap:.4rem;background:#fef9c3;border:1px solid #fde68a;border-radius:100px;padding:.25rem .75rem;font-size:.67rem;font-weight:700;color:#854d0e;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.25rem}
+.pclient-row{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .18s;border-radius:8px}
+.pclient-row:last-child{border-bottom:none}
+.pclient-row:hover{background:var(--cream);padding:.8rem .75rem;margin:0 -.75rem}
+.pclient-av{width:36px;height:36px;border-radius:50%;background:var(--forest);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0}
+.pclient-name{font-size:.9rem;font-weight:700;color:var(--ink)}
+.pclient-svc{font-size:.72rem;color:var(--muted);margin-top:1px}
+.ppct-pill{margin-left:auto;font-size:.7rem;font-weight:700;padding:.22rem .6rem;border-radius:100px}
+.pform-admin input,.pform-admin select,.pform-admin textarea{width:100%;padding:.68rem .9rem;border:1.5px solid var(--border);border-radius:9px;font-family:"Inter",sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;margin-bottom:.75rem;box-sizing:border-box}
+.pform-admin input:focus,.pform-admin select:focus,.pform-admin textarea:focus{border-color:var(--forest)}
+.pform-admin label{font-size:.65rem;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+.pform-admin textarea{resize:vertical;min-height:80px}
+.pbtn-save{width:100%;padding:.75rem;background:var(--forest);color:#fff;border:none;border-radius:9px;font-family:"Inter",sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:all .2s}
+.pbtn-save:hover{background:var(--forest-2,#0f2820)}
+.pbtn-add{display:flex;align-items:center;gap:.4rem;padding:.45rem .85rem;background:var(--forest);color:#fff;border:none;border-radius:7px;font-family:"Inter",sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;transition:background .2s}
+.pbtn-add:hover{background:var(--forest-2,#0f2820)}
+.pmodal-overlay{display:none;position:fixed;inset:0;background:rgba(13,26,20,.65);z-index:9500;align-items:center;justify-content:center;padding:1rem}
+.pmodal-overlay.active{display:flex}
+.pmodal{background:#fff;border-radius:18px;padding:2rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(13,26,20,.18)}
+.pmodal-title{font-family:"Lora",serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:1.25rem}
+.pmodal-close{float:right;background:none;border:none;cursor:pointer;font-size:1.3rem;color:var(--muted);margin-top:-4px}
+#ptoast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(60px);background:var(--forest);color:#fff;padding:.7rem 1.2rem;border-radius:10px;font-size:.8rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;z-index:9999;pointer-events:none;white-space:nowrap;transition:transform .3s ease,opacity .3s}
+@media(max-width:768px){
+  .pgrid2,.pgrid3{grid-template-columns:1fr}
+  .pwelcome{flex-direction:column;gap:1rem;text-align:center}
+  .pwelcome-right{text-align:center}
+  .pwelcome-bar{min-width:100%}
+  .ptopbar-name-user{display:none}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 20 20" fill="none">
+          <path d="M10 2L3.5 17.5h13L10 2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M6.5 12.5h7" stroke="#c5a46e" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M3 17.5h14" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <span class="nav-logo-name">CEDRO</span>
+        <span class="nav-logo-sub">Alvenaria &amp; Carpintaria</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#processo">Como Funciona</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="https://wa.me/12679053490?text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" class="btn-wa-nav" id="btn-wa-nav">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.135.561 4.139 1.543 5.876L0 24l6.335-1.541A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        WhatsApp
+      </a>
+      <button class="btn-cta-nav" id="btn-open-portal" onclick="openPortal()" style="
+        background:transparent;border:1.5px solid rgba(26,60,52,.25);color:var(--forest);
+        display:flex;align-items:center;gap:.4rem;font-size:.78rem;
+      " onmouseover="this.style.background='#f0fdf4';this.style.borderColor='var(--forest)'"
+         onmouseout="this.style.background='transparent';this.style.borderColor='rgba(26,60,52,.25)'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Área do Cliente
+      </button>
+      <button class="btn-cta-nav" onclick="go('contato')">Pedir Orçamento</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════ -->
+<header>
+  <div class="hero-wrap">
+    <!-- LEFT -->
+    <div class="reveal">
+      <div class="hero-rating">
+        <span class="live-dot"></span>
+        <span class="stars text-sm">★★★★★</span>
+        <span class="text-sm font-semibold" style="color:#1a3c34">4.9</span>
+        <span class="text-sm" style="color:#6b7a72">· +80 projetos entregues no Vale do Aço</span>
+      </div>
+      <div class="hero-eyebrow">
+        <span>Alvenaria · Carpintaria · Origem legal · SISFLORA</span>
+      </div>
+      <h1 class="hero h1">
+        Alvenaria e<br>
+        <em class="accent">Carpintaria</em><br>do jeito certo.
+      </h1>
+      <p class="hero-sub">
+        Deck, pergolado, telhados, painéis ripados, alvenaria estrutural, pisos, efeitos 3D e muito mais — qualidade comprovada e madeira de origem legal garantida.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="go('contato')">
+          Quero meu orçamento agora
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button class="btn-secondary" onclick="go('projetos')">Ver projetos reais</button>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-chip">✓ Nota fiscal em todos os projetos</span>
+        <span class="trust-chip">✓ Resposta em até 24h</span>
+        <span class="trust-chip">✓ Orçamento gratuito</span>
+      </div>
+      <div class="hero-scarcity">
+        <span style="font-size:1.1rem">⏳</span>
+        <span>Atendo até <strong>4 projetos por mês</strong> — consulte disponibilidade antes de contratar.</span>
+      </div>
+    </div>
+    <!-- RIGHT -->
+    <div class="hero-visual reveal d2">
+      <div class="hero-img-frame">
+        <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=900&q=80"
+             alt="Carpintaria artesanal em cedro"
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#c5a46e,#8a6a2a)'"/>
+      </div>
+      <div class="hero-float-review">
+        <div class="review-av">AP</div>
+        <div>
+          <div class="stars" style="font-size:.78rem">★★★★★</div>
+          <p style="font-size:.75rem;color:#4a5550;margin-top:3px;line-height:1.5">"O cheiro do cedro continua forte depois de 4 anos. Todo mundo comenta."</p>
+          <p style="font-size:.68rem;color:#9ca3af;margin-top:4px">— Ana Paula, Gov. Valadares</p>
+        </div>
+      </div>
+      <div class="hero-float-years">
+        <span style="font-size:1.25rem;line-height:1">15+</span>
+        <span style="font-size:.6rem;margin-top:2px;opacity:.85">anos de<br>ofício</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ TRUST BAR ════════════════════════════════════ -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-bar-item"><span class="trust-num">80+</span><span class="trust-lbl">Projetos entregues</span></div>
+    <div class="trust-bar-item"><span class="trust-num">4.9★</span><span class="trust-lbl">Avaliação média</span></div>
+    <div class="trust-bar-item"><span class="trust-num">15+</span><span class="trust-lbl">Anos de ofício</span></div>
+    <div class="trust-bar-item"><span class="trust-num">100%</span><span class="trust-lbl">Nota fiscal + SISFLORA</span></div>
+  </div>
+</div>
+
+<!-- ═══ SERVIÇOS ═══════════════════════════════════════ -->
+<section id="servicos" class="section-pad" style="background:#fff">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem">
+      <span class="eyebrow" style="display:block;text-align:center">O que fazemos</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">Serviços completos em dois mundos</h2>
+      <p style="font-size:.95rem;color:var(--muted);margin-top:.75rem;max-width:520px;margin-inline:auto;line-height:1.7">
+        Carpintaria com madeira de origem legal e alvenaria de alto acabamento — uma empresa, tudo resolvido.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="reveal d1">
+
+      <!-- CARPINTARIA -->
+      <div style="background:var(--forest);border-radius:18px;overflow:hidden">
+        <div style="padding:1.5rem 1.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.1)">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.3rem">
+            <div style="width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V8l8-5 8 5v12"/><rect x="9" y="13" width="6" height="7"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Lora',serif;font-size:1.15rem;font-weight:700;color:#fff">Carpintaria</div>
+              <div style="font-size:.68rem;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;margin-top:1px">Madeira de origem legal · SISFLORA</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:1.25rem 1.75rem 1.75rem;display:flex;flex-direction:column;gap:.55rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V11l7-8 7 8v10"/></svg>
+              Deck
+            </div>
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="3" rx="1"/><path d="M5 11v7M19 11v7M2 18h20"/></svg>
+              Pergolado
+            </div>
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><path d="M2 12L12 2l10 10"/><path d="M5 9v11h14V9"/></svg>
+              Telhados
+            </div>
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="2" y="14" width="20" height="6" rx="1"/><path d="M6 14V6h12v8"/></svg>
+              Varandas
+            </div>
+            <div class="svc-pill" style="grid-column:span 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7 3v18M11 3v18M15 3v18M19 3v18"/></svg>
+              Painel ripado na parede
+            </div>
+            <div class="svc-pill" style="grid-column:span 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8h18M3 13h18M3 18h18"/></svg>
+              Painel ripado na fachada
+            </div>
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="18" rx="1"/><path d="M10 12h11"/></svg>
+              Porta simples
+            </div>
+            <div class="svc-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="18" rx="1"/><circle cx="8.5" cy="12" r="1"/><path d="M10 3h11v18H10"/></svg>
+              Porta personalizada
+            </div>
+          </div>
+          <button class="btn-primary" style="margin-top:.75rem;font-size:.82rem;padding:.7rem 1.2rem;border-radius:9px" onclick="go('contato')">
+            Orçar Carpintaria →
+          </button>
+        </div>
+      </div>
+
+      <!-- ALVENARIA -->
+      <div style="background:var(--sand);border:1px solid var(--border);border-radius:18px;overflow:hidden">
+        <div style="padding:1.5rem 1.75rem 1rem;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.3rem">
+            <div style="width:38px;height:38px;background:var(--white);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+            </div>
+            <div>
+              <div style="font-family:'Lora',serif;font-size:1.15rem;font-weight:700;color:var(--ink)">Alvenaria</div>
+              <div style="font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:1px">Estrutura sólida · Acabamento refinado</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:1.25rem 1.75rem 1.75rem;display:flex;flex-direction:column;gap:.55rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+            <div class="svc-pill svc-pill-light" style="grid-column:span 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="3"/><rect x="3" y="14" width="18" height="3"/><rect x="3" y="3" width="4" height="18"/><rect x="17" y="3" width="4" height="18"/></svg>
+              Alvenaria estrutural
+            </div>
+            <div class="svc-pill svc-pill-light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
+              Formas
+            </div>
+            <div class="svc-pill svc-pill-light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M4 4l8 4 8-4"/><path d="M4 4v16M20 4v16"/></svg>
+              Rebocos
+            </div>
+            <div class="svc-pill svc-pill-light" style="grid-column:span 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><rect x="2" y="14" width="20" height="6" rx="1"/><rect x="2" y="8" width="20" height="6"/><rect x="2" y="3" width="20" height="5" rx="1"/></svg>
+              Instalação de pisos e azulejos
+            </div>
+            <div class="svc-pill svc-pill-light" style="grid-column:span 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><rect x="3" y="10" width="18" height="10" rx="1"/><path d="M7 10V7a5 5 0 0110 0v3"/></svg>
+              Pia de porcelanato
+            </div>
+            <div class="svc-pill svc-pill-light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Efeitos 3D na parede
+            </div>
+            <div class="svc-pill svc-pill-light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--forest)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 000 9 4.5 4.5 0 000 9"/></svg>
+              Texturas
+            </div>
+          </div>
+          <button class="btn-primary" style="margin-top:.75rem;font-size:.82rem;padding:.7rem 1.2rem;border-radius:9px;background:var(--ink)" onclick="go('contato')">
+            Orçar Alvenaria →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMA ═══════════════════════════════════════ -->
+<section class="section-pad problem-bg">
+  <div class="wrap">
+    <div class="reveal" style="max-width:600px">
+      <span class="eyebrow">O Problema</span>
+      <h2 class="section-title">A madeira barata vai te custar caro.</h2>
+      <p style="font-size:.95rem;color:#6b7a72;margin-top:.75rem;line-height:1.7">Você não paga mais pela madeira ruim na compra — paga depois, com retrabalho, desvalorização e dor de cabeça.</p>
+    </div>
+    <div class="problem-items reveal d1">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div>
+          <div class="problem-title">Cupim em menos de 3 anos</div>
+          <div class="problem-desc">Madeira sem tratamento adequado apodrece por dentro. O prejuízo aparece quando você menos espera — e custa muito mais do que a economia inicial.</div>
+          <span class="problem-fix">✓ Cedro tem resistência natural ao cupim, sem veneno</span>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div>
+          <div class="problem-title">Perde valor na revenda</div>
+          <div class="problem-desc">Qualquer comprador experiente nota acabamento ruim de longe. Um imóvel com cedro genuíno tem percepção de valor imediatamente superior.</div>
+          <span class="problem-fix">✓ Clientes relatam valorização percebida na hora de vender</span>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div>
+          <div class="problem-title">Retrabalho custa mais que fazer certo da primeira vez</div>
+          <div class="problem-desc">Material ruim + mão de obra barata = refazer em 2 anos. Quem faz certo na primeira vez gasta menos no total — e não perde o fim de semana com prestador.</div>
+          <span class="problem-fix">✓ Garantia contratual em todos os projetos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUÇÃO ═══════════════════════════════════════ -->
+<section id="solucao" class="section-pad">
+  <div class="wrap">
+    <div class="solution-grid">
+      <div class="reveal">
+        <span class="eyebrow">A Solução</span>
+        <h2 class="section-title">Cedro onde importa.<br>Eucalipto onde faz sentido.</h2>
+        <p class="solution-text">Não vendo cedro para tudo sem motivo. Eu te ajudo a decidir onde cada madeira vale mais — e onde dá pra economizar sem sacrificar qualidade. Essa consultoria já vem inclusa no orçamento.</p>
+        <p class="solution-text" style="margin-top:.75rem">Trabalhamos com <strong>cedro rosa de origem legal</strong>, com documentação SISFLORA emitida em todos os projetos. Você compra com consciência limpa.</p>
+        <button class="btn-primary" style="margin-top:1.75rem" onclick="go('contato')">Quero essa consultoria</button>
+      </div>
+      <div class="reveal d2">
+        <div class="solution-compare">
+          <div class="compare-header">
+            <span style="color:rgba(255,255,255,.4)">Característica</span>
+            <div style="display:flex;gap:3rem">
+              <span class="ch-cedro">Cedro Rosa</span>
+              <span class="ch-other">Alternativa comum</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Resistência ao cupim</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">Natural</span>
+              <span class="compare-other">Precisa de trat.</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Durabilidade</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">30–50 anos</span>
+              <span class="compare-other">5–15 anos</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Cheiro característico</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">Por décadas</span>
+              <span class="compare-other">Não tem</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Trabalhabilidade</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">Excelente</span>
+              <span class="compare-other">Variável</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Documentação legal</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">SISFLORA + NF</span>
+              <span class="compare-other">Nem sempre</span>
+            </div>
+          </div>
+          <div class="compare-row">
+            <span class="compare-feature">Valor de revenda</span>
+            <div style="display:flex;gap:3.5rem;min-width:200px">
+              <span class="compare-cedar">Aumenta</span>
+              <span class="compare-other">Neutro/baixa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BENEFÍCIOS ════════════════════════════════════ -->
+<section class="section-pad benefits-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:rgba(197,164,110,.8)">Por que Cedro</span>
+      <h2 class="section-title" style="color:#fff">O que você ganha de verdade</h2>
+    </div>
+    <div class="benefits-grid reveal d1">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="1.75" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="benefit-title">Resistência natural a cupim</div>
+        <div class="benefit-desc">Os óleos naturais do cedro repelem insetos por décadas. Sem veneno, sem manutenção, sem surpresa.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="benefit-title">Cheiro que fica por décadas</div>
+        <div class="benefit-desc">O aroma do cedro é inconfundível e permanece por muito tempo. É um dos detalhes mais comentados por quem visita a casa.</div>
+        <div class="benefit-quote">
+          "O cheiro ainda está forte depois de 4 anos. Todo mundo que entra em casa comenta."
+          <div class="benefit-quote-author">— Ana Paula S., Governador Valadares</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="1.75" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <div class="benefit-title">Valorização real do imóvel</div>
+        <div class="benefit-desc">Acabamento em cedro é percebido como alto padrão. Compradores reconhecem qualidade — e isso reflete direto no preço de venda.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c5a46e" stroke-width="1.75" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
+        </div>
+        <div class="benefit-title">Origem legal sem complicação</div>
+        <div class="benefit-desc">Nota fiscal + SISFLORA em 100% dos projetos. Você nunca vai ter problema fiscal com material comprado aqui.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMO FUNCIONA ════════════════════════════════ -->
+<section id="processo" class="section-pad process-bg">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:.5rem">
+      <span class="eyebrow" style="display:block;text-align:center">Como funciona</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">Do contato à entrega — sem complicação</h2>
+    </div>
+    <div class="process-steps reveal d1">
+      <div class="proc-step">
+        <div class="proc-dot">01</div>
+        <div class="proc-title">Você entra em contato</div>
+        <p class="proc-desc">Pelo WhatsApp ou pelo formulário abaixo. Leva menos de 2 minutos.</p>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">02</div>
+        <div class="proc-title">Visita técnica grátis</div>
+        <p class="proc-desc">Vou até você medir, avaliar e tirar todas as dúvidas sem custo.</p>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">03</div>
+        <div class="proc-title">Orçamento em 24h</div>
+        <p class="proc-desc">Detalhado, sem letras miúdas e com prazo definido em contrato.</p>
+      </div>
+      <div class="proc-step">
+        <div class="proc-dot">04</div>
+        <div class="proc-title">Execução com garantia</div>
+        <p class="proc-desc">Acompanhe pelo WhatsApp com fotos diárias do andamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERIA ════════════════════════════════════════ -->
+<section id="projetos" class="section-pad" style="background:#fff">
+  <div class="wrap">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:0">
+      <div>
+        <span class="eyebrow">Projetos Reais</span>
+        <h2 class="section-title">Trabalho que já entreguei</h2>
+      </div>
+      <button class="btn-secondary" onclick="go('contato')" style="font-size:.82rem;padding:.65rem 1.2rem">Quero um projeto assim →</button>
+    </div>
+    <div class="gallery-grid reveal d1">
+      <div class="gallery-item g0">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="Sala com acabamento em cedro"/>
+        <div class="gallery-cap">
+          <div class="gallery-cap-title">Sala de estar — acabamento em cedro</div>
+          <div class="gallery-cap-loc">Governador Valadares, MG</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Deck residencial"/>
+        <div class="gallery-cap">
+          <div class="gallery-cap-title">Deck — eucalipto tratado</div>
+          <div class="gallery-cap-loc">Ipatinga, MG</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80" alt="Portas em cedro"/>
+        <div class="gallery-cap">
+          <div class="gallery-cap-title">Portas e guarnições em cedro</div>
+          <div class="gallery-cap-loc">Timóteo, MG</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Forro em cedro"/>
+        <div class="gallery-cap">
+          <div class="gallery-cap-title">Forro e forração em cedro</div>
+          <div class="gallery-cap-loc">Caratinga, MG</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&q=80" alt="Escada em cedro"/>
+        <div class="gallery-cap">
+          <div class="gallery-cap-title">Escada em cedro maciço</div>
+          <div class="gallery-cap-loc">Governador Valadares, MG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DEPOIMENTOS ════════════════════════════════════ -->
+<section class="section-pad" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:0">
+      <span class="eyebrow" style="display:block;text-align:center">Depoimentos</span>
+      <h2 class="section-title" style="text-align:center;margin:0 auto">O que dizem quem já contratou</h2>
+    </div>
+    <div class="t-grid reveal d1">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <span class="t-quote">"</span>
+        <p class="t-text">"O cheiro do cedro ainda está forte depois de 4 anos. Todo mundo que entra em casa comenta. Valeu cada centavo do investimento."</p>
+        <div class="t-author">
+          <div class="t-av">AP</div>
+          <div><span class="t-name">Ana Paula S.</span><span class="t-role">Governador Valadares, MG</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <span class="t-quote">"</span>
+        <p class="t-text">"Fiz portas e janelas de cedro. Depois de 6 anos, continua igual ao primeiro dia — sem estufar, sem travar, sem cupim. Recomendo muito."</p>
+        <div class="t-author">
+          <div class="t-av">RM</div>
+          <div><span class="t-name">Roberto M.</span><span class="t-role">Ipatinga, MG</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <span class="t-quote">"</span>
+        <p class="t-text">"Orçamento honesto, prazo rigorosamente cumprido, qualidade impecável. Já indiquei para três vizinhos. Profissional de verdade, difícil de encontrar."</p>
+        <div class="t-author">
+          <div class="t-av">CF</div>
+          <div><span class="t-name">Cláudia F.</span><span class="t-role">Timóteo, MG</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ════════════════════════════════════════════ -->
+<section id="faq" class="section-pad" style="background:#fff">
+  <div class="wrap">
+    <div class="faq-layout">
+      <div class="reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-title">Perguntas frequentes</h2>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.75;margin-top:.75rem;margin-bottom:1.75rem">Não encontrou o que precisa? Me chama direto no WhatsApp — respondo na hora.</p>
+        <a href="https://wa.me/12679053490?text=Tenho%20uma%20dúvida%20sobre%20carpintaria%20em%20cedro." target="_blank" class="btn-primary" style="display:inline-flex;font-size:.875rem">
+          Tirar dúvida no WhatsApp
+        </a>
+      </div>
+      <div class="faq-list reveal d2">
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">
+            <span class="faq-q">Quais cidades você atende?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Atendo principalmente no Vale do Aço e região — Governador Valadares, Ipatinga, Timóteo, Caratinga e arredores. Para projetos maiores, avalio deslocamento caso a caso.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">
+            <span class="faq-q">Qual o prazo médio de entrega?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Projetos pequenos (rodapés, guarnições): 15 a 30 dias. Projetos médios (portas, janelas): 30 a 45 dias. Projetos maiores (escadas, forro, deck): 45 a 90 dias. O prazo é definido em contrato antes de começar.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">
+            <span class="faq-q">O orçamento é realmente gratuito?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Sim, 100% gratuito e sem compromisso. Faço visita técnica para projetos maiores ou quando necessário para medir com precisão. Você recebe o orçamento detalhado por WhatsApp em até 24h depois da visita.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">
+            <span class="faq-q">Cedro custa muito mais que as alternativas?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>O cedro costuma ser 40–70% mais caro que eucalipto tratado na compra, mas quando você considera durabilidade (30–50 anos vs 5–15 anos) e ausência de manutenção, o custo por ano é similar ou menor. Eu te ajudo a calcular isso para o seu projeto.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn" onclick="toggleFaq(this)">
+            <span class="faq-q">Quais formas de pagamento?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a"><p>Aceito PIX, transferência bancária e parcelamento em até 3× sem juros para projetos maiores. O pagamento é feito em etapas: entrada, durante a execução e na entrega.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FORM / CTA ═══════════════════════════════════════ -->
+<section id="contato" class="section-pad cta-bg">
+  <div class="wrap">
+    <div class="cta-inner">
+      <!-- LEFT -->
+      <div class="reveal">
+        <span class="eyebrow">Solicitar orçamento</span>
+        <h2 class="cta-title">Vamos fazer seu projeto do jeito certo</h2>
+        <p class="cta-sub">Preencha o formulário e recebo seu briefing diretamente no WhatsApp. Respondo em até 24h — geralmente muito antes.</p>
+        <div class="cta-contacts">
+          <div class="cta-contact-item">
+            <div class="cta-ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <span class="cta-ci-text">Governador Valadares, MG — Vale do Aço e região</span>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <span class="cta-ci-text">(33) 9 XXXX-XXXX</span>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-ci-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <span class="cta-ci-text">contato@cedrocarpintaria.com.br</span>
+          </div>
+        </div>
+        <a href="https://wa.me/12679053490?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" class="wa-direct-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.135.561 4.139 1.543 5.876L0 24l6.335-1.541A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          Falar direto no WhatsApp
+        </a>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="form-card reveal d2">
+        <div class="form-card-title">Briefing do Projeto</div>
+        <div class="form-card-sub">Quanto mais detalhes, mais preciso o orçamento. Campos com * são obrigatórios.</div>
+
+        <form id="formContato" novalidate>
+          <div class="form-section-label">Seus dados</div>
+          <div class="fg-row" style="margin-bottom:.85rem">
+            <div class="fg"><label>Nome *</label><input type="text" id="nome" required placeholder="Seu nome completo"/></div>
+            <div class="fg"><label>WhatsApp *</label><input type="tel" id="telefone" required placeholder="(33) 99999-9999"/></div>
+          </div>
+          <div class="fg-row" style="margin-bottom:.85rem">
+            <div class="fg"><label>E-mail</label><input type="email" id="email" placeholder="seu@email.com"/></div>
+            <div class="fg"><label>Cidade / Estado</label><input type="text" id="cidade" placeholder="Governador Valadares, MG"/></div>
+          </div>
+
+          <div class="form-section-label">O Projeto</div>
+          <div class="fg" style="margin-bottom:.85rem">
+            <label>Tipo de Serviço *</label>
+            <select id="tipo" required>
+              <option value="">Selecione...</option>
+              <optgroup label="🪵 Carpintaria">
+                <option>Deck</option>
+                <option>Pergolado</option>
+                <option>Telhado</option>
+                <option>Varanda</option>
+                <option>Painel ripado na parede</option>
+                <option>Painel ripado na fachada</option>
+                <option>Instalação de porta simples</option>
+                <option>Instalação de porta personalizada</option>
+              </optgroup>
+              <optgroup label="🧱 Alvenaria">
+                <option>Alvenaria estrutural</option>
+                <option>Formas</option>
+                <option>Reboco</option>
+                <option>Instalação de pisos e azulejos</option>
+                <option>Pia de porcelanato</option>
+                <option>Efeito 3D na parede</option>
+                <option>Texturas</option>
+              </optgroup>
+              <option>Projeto completo (carpintaria + alvenaria)</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="fg-row" style="margin-bottom:.85rem">
+            <div class="fg">
+              <label>Madeira preferida</label>
+              <select id="madeira">
+                <option>Cedro rosa (premium)</option>
+                <option>Eucalipto tratado</option>
+                <option>Porcelanato / cerâmica</option>
+                <option>Misto (carpintaria + alvenaria)</option>
+                <option>Me ajudar a decidir</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Prazo desejado</label>
+              <select id="prazo">
+                <option>Urgente (até 30 dias)</option>
+                <option>1 a 2 meses</option>
+                <option>Mais de 2 meses</option>
+                <option>Sem pressa</option>
+              </select>
+            </div>
+          </div>
+          <div class="fg" style="margin-bottom:.85rem">
+            <label>Data preferida para visita técnica</label>
+            <input type="date" id="data_orcamento"/>
+          </div>
+          <div class="fg" style="margin-bottom:1.1rem">
+            <label>Descrição do projeto</label>
+            <textarea id="descricao" placeholder="Descreva o que precisa: ambiente, medidas aproximadas, referências de estilo..."></textarea>
+          </div>
+
+          <a id="wa-submit-btn"
+             href="https://wa.me/12679053490"
+             target="_blank"
+             rel="noopener"
+             class="btn-submit"
+             onclick="return handleSubmit(this, event)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.135.561 4.139 1.543 5.876L0 24l6.335-1.541A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            Enviar e abrir WhatsApp
+          </a>
+          <p class="form-foot">Você vai falar diretamente comigo — sem intermediários, sem spam.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="nav-logo" style="text-decoration:none">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M10 2L3.5 17.5h13L10 2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M6.5 12.5h7" stroke="#c5a46e" stroke-width="1.4" stroke-linecap="round"/><path d="M3 17.5h14" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <span class="nav-logo-name" style="color:#fff">Cedro</span>
+        <span class="nav-logo-sub">Alvenaria &amp; Carpintaria</span>
+      </div>
+    </a>
+    <p class="footer-copy">© 2026 CEDRO | Alvenaria &amp; Carpintaria · Gov. Valadares, MG</p>
+    <nav class="footer-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Processo</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Orçamento</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ═══ FLOATING WA ══════════════════════════════════════ -->
+<a href="https://wa.me/12679053490?text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" rel="noopener" class="wa-fab" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.135.561 4.139 1.543 5.876L0 24l6.335-1.541A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+  <span class="wa-ring"></span>
+  <span class="wa-tip">Fale comigo agora</span>
+</a>
+
+<!-- ═══ SCRIPTS ══════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ── helpers ── */
+const $ = id => document.getElementById(id);
+const val = id => ($( id)?.value?.trim()) || '';
+const WA  = '12679053490';
+
+function go(id) {
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 74, behavior: 'smooth' });
+}
+
+/* ── nav scroll shadow ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 28), { passive: true });
+
+/* ── scroll reveal ── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ── smooth anchor links ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); go(t.id); }
+  });
+});
+
+/* ── FAQ accordion ── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── date min ── */
+function setMinDate() {
+  const d = $('data_orcamento');
+  if (!d) return;
+  const t = new Date();
+  d.min = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+}
+
+/* ── build WhatsApp message ── */
+function buildMsg() {
+  const lines = [
+    'Olá! Envio meu briefing de projeto.\n',
+    '*━━ BRIEFING — CEDRO | ALVENARIA & CARPINTARIA ━━*\n',
+    `*Nome:* ${val('nome') || '—'}`,
+    `*WhatsApp:* ${val('telefone') || '—'}`,
+    val('email')   ? `*E-mail:* ${val('email')}` : '',
+    val('cidade')  ? `*Cidade:* ${val('cidade')}` : '',
+    '',
+    `*Tipo de serviço:* ${val('tipo') || '—'}`,
+    `*Madeira preferida:* ${val('madeira')}`,
+    `*Prazo desejado:* ${val('prazo')}`,
+    val('data_orcamento') ? `*Data para visita:* ${val('data_orcamento')}` : '',
+    val('descricao')      ? `\n*Descrição:*\n${val('descricao')}` : '',
+    '\nAguardo retorno. Obrigado!'
+  ].filter(l => l !== '').join('\n');
+  return encodeURIComponent(lines);
+}
+
+/* ── update link in real time ── */
+function updateLink() {
+  const btn = $('wa-submit-btn');
+  if (btn) btn.href = `https://wa.me/${WA}?text=${buildMsg()}`;
+}
+document.querySelectorAll('#formContato input, #formContato select, #formContato textarea')
+  .forEach(el => el.addEventListener('input', updateLink));
+
+/* ── validate + generate PDF + open WA ── */
+function handleSubmit(btn, e) {
+  const err = document.getElementById('form-err');
+  if (err) err.remove();
+
+  if (!val('nome') || !val('telefone') || !val('tipo')) {
+    e.preventDefault();
+    const p = document.createElement('p');
+    p.id = 'form-err';
+    p.textContent = '⚠ Preencha Nome, WhatsApp e Tipo de serviço para continuar.';
+    p.style.cssText = 'color:#fca5a5;font-size:.78rem;margin-bottom:.5rem;font-weight:600';
+    btn.before(p);
+    setTimeout(() => p.remove(), 4000);
+    return false;
+  }
+
+  /* final href update before navigation */
+  btn.href = `https://wa.me/${WA}?text=${buildMsg()}`;
+
+  /* also generate PDF if jsPDF available */
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('CEDRO | Alvenaria e Carpintaria', 20, 22);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.text('Briefing de Projeto', 20, 30);
+    doc.setFontSize(9);
+    doc.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, 20, 37);
+    doc.setDrawColor(197, 164, 110);
+    doc.line(20, 41, 190, 41);
+    doc.setFontSize(10);
+    let y = 50;
+    const campos = [
+      ['Nome', val('nome')], ['WhatsApp', val('telefone')], ['E-mail', val('email')],
+      ['Cidade', val('cidade')], ['Tipo de serviço', val('tipo')],
+      ['Madeira', val('madeira')], ['Prazo', val('prazo')],
+      ['Data p/ visita', val('data_orcamento')],
+    ];
+    campos.forEach(([lbl, v]) => { if (v) { doc.setFont('helvetica', 'bold'); doc.text(`${lbl}:`, 20, y); doc.setFont('helvetica', 'normal'); doc.text(v, 75, y); y += 8; } });
+    if (val('descricao')) {
+      y += 4;
+      doc.setFont('helvetica', 'bold'); doc.text('Descrição:', 20, y); y += 7;
+      doc.setFont('helvetica', 'normal');
+      const lines = doc.splitTextToSize(val('descricao'), 165);
+      doc.text(lines, 20, y);
+    }
+    doc.save('briefing-cedro.pdf');
+  } catch(_) { /* silent fail if jsPDF not loaded */ }
+
+  /* success feedback */
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✓ Abrindo WhatsApp...';
+  btn.style.background = '#15803d';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    btn.innerHTML = orig;
+    btn.style.background = '';
+    btn.style.pointerEvents = '';
+    document.getElementById('formContato').reset();
+    updateLink();
+  }, 3500);
+
+  return true;
+}
+
+/* ── init ── */
+setMinDate();
+updateLink();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════
+     PORTAL DO CLIENTE — overlay completo sobre a landing page
+     ════════════════════════════════════════════════════════════════ -->
+<div id="portal-overlay">
+
+  <!-- TOPBAR -->
+  <nav class="ptopbar">
+    <div class="ptopbar-logo">
+      <div class="ptopbar-mark">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2L3.5 17.5h13L10 2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M6.5 12.5h7" stroke="#c5a46e" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <span class="ptopbar-name">CEDRO</span>
+        <span class="ptopbar-sub">Portal do Cliente</span>
+      </div>
+    </div>
+    <div class="ptopbar-right">
+      <button class="btn-p-sm btn-p-back" onclick="closePortal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Voltar ao site
+      </button>
+      <button class="btn-p-sm btn-p-toggle" id="p-view-toggle" onclick="ptoggleView()" style="display:none">Ver como Admin</button>
+      <div class="ptopbar-av" id="p-av" style="display:none">?</div>
+      <span class="ptopbar-name-user" id="p-uname" style="display:none"></span>
+      <button class="btn-p-sm btn-p-logout" id="p-logout-btn" onclick="plogout()" style="display:none">Sair</button>
+    </div>
+  </nav>
+
+  <!-- LOGIN SCREEN -->
+  <div id="pscreen-login" class="pscreen active">
+    <div class="plogin-wrap">
+      <div class="plogin-card">
+        <div class="login-logo" style="margin-bottom:1.5rem">
+          <div class="login-logo-mark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2L3.5 17.5h13L10 2Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M6.5 12.5h7" stroke="#c5a46e" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="login-logo-name">CEDRO</span>
+            <span class="login-logo-sub">Portal do Cliente</span>
+          </div>
+        </div>
+        <h2 class="serif" style="font-size:1.35rem;font-weight:700;color:var(--ink);margin-bottom:.3rem">Bem-vindo de volta</h2>
+        <p style="font-size:.875rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.5">Acompanhe seu projeto, cronograma e execução.</p>
+
+        <div class="plogin-tabs">
+          <button class="plogin-tab active" id="ptab-google" onclick="psetTab('google')">Google</button>
+          <button class="plogin-tab" id="ptab-email" onclick="psetTab('email')">E-mail</button>
+        </div>
+
+        <div id="ppane-google">
+          <button class="btn-google-p" onclick="ploginGoogle()">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Entrar com Google
+          </button>
+        </div>
+
+        <div id="ppane-email" style="display:none">
+          <div class="p-fg"><label>E-mail</label><input type="email" id="p-email" placeholder="seu@email.com"/></div>
+          <div class="p-fg"><label>Senha</label><input type="password" id="p-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')ploginEmail()"/></div>
+          <div style="text-align:right;margin-bottom:.75rem">
+            <a onclick="presetPwd()" style="font-size:.72rem;color:var(--cedar-2);cursor:pointer;font-weight:600">Esqueci minha senha</a>
+          </div>
+          <button class="btn-login-p" onclick="ploginEmail()">Entrar</button>
+          <p class="p-err" id="p-err"></p>
+        </div>
+        <p style="font-size:.7rem;color:#9ca3af;text-align:center;margin-top:.9rem">Não tem acesso? Solicite ao responsável pelo seu projeto.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD SCREEN -->
+  <div id="pscreen-dash" class="pscreen" style="overflow-y:auto;flex:1">
+    <div class="pbody">
+
+      <!-- CLIENT VIEW -->
+      <div id="pview-client">
+        <div class="pwelcome">
+          <div class="pwelcome-left">
+            <div class="pwelcome-greeting">Bem-vindo de volta</div>
+            <div class="pwelcome-name serif" id="pw-name">—</div>
+            <div class="pwelcome-project" id="pw-project">—</div>
+          </div>
+          <div class="pwelcome-right">
+            <div class="pwelcome-pct" id="pw-pct">—</div>
+            <div class="pwelcome-lbl">Concluído</div>
+            <div class="pwelcome-bar"><div class="pwelcome-fill" id="pw-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="pgrid3">
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#dcfce7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+            <span class="pstat-n" id="pst-phases">—</span><span class="pstat-l">Fases concluídas</span>
+          </div></div>
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#dbeafe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <span class="pstat-n" id="pst-delivery">—</span><span class="pstat-l">Previsão entrega</span>
+          </div></div>
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#fef9c3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
+            <span class="pstat-n" id="pst-days">—</span><span class="pstat-l">Dias para entrega</span>
+          </div></div>
+        </div>
+
+        <div class="pgrid2">
+          <div class="pcard">
+            <div class="pcard-hd">
+              <div class="pcard-title"><div class="pcard-icon" style="background:#dcfce7"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>Orçamento</div>
+              <span class="pbadge pbg-green">Aprovado</span>
+            </div>
+            <div class="pcard-body" id="p-quote-items"><div class="pempty"><div class="pempty-icon">📋</div><p>Orçamento em preparação</p></div></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-hd">
+              <div class="pcard-title"><div class="pcard-icon" style="background:#dbeafe"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>Cronograma</div>
+              <span class="pbadge pbg-blue">Em andamento</span>
+            </div>
+            <div class="pcard-body" id="p-timeline-items"><div class="pempty"><div class="pempty-icon">📅</div><p>Cronograma em preparação</p></div></div>
+          </div>
+        </div>
+
+        <div class="pgrid2">
+          <div class="pcard">
+            <div class="pcard-hd">
+              <div class="pcard-title"><div class="pcard-icon" style="background:#f0fdf4"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>Progresso</div>
+              <span class="pbadge pbg-green" id="p-ph-badge">—</span>
+            </div>
+            <div class="pcard-body"><div class="pphases" id="p-phases-list"><div class="pempty"><div class="pempty-icon">📊</div><p>Fases em preparação</p></div></div></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-hd">
+              <div class="pcard-title"><div class="pcard-icon" style="background:#fef3c7"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>Mensagens</div>
+            </div>
+            <div class="pcard-body">
+              <div class="pmsgs" id="p-msgs-list"><div class="pempty"><div class="pempty-icon">💬</div><p>Nenhuma mensagem ainda</p></div></div>
+              <div class="pmsg-row">
+                <input class="pmsg-inp" id="p-msg-inp" type="text" placeholder="Escreva uma mensagem…" onkeydown="if(event.key==='Enter')psendMsg()"/>
+                <button class="pmsg-btn" onclick="psendMsg()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN VIEW -->
+      <div id="pview-admin" style="display:none">
+        <div class="padmin-badge">🔧 Painel Administrativo</div>
+        <div class="pgrid3">
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#dcfce7"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="pstat-n" id="pa-projects">0</span><span class="pstat-l">Projetos ativos</span>
+          </div></div>
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#fef9c3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <span class="pstat-n" id="pa-msgs">0</span><span class="pstat-l">Msgs não lidas</span>
+          </div></div>
+          <div class="pcard"><div class="pstat-card">
+            <div class="pstat-ico" style="background:#dbeafe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
+            <span class="pstat-n" id="pa-due">0</span><span class="pstat-l">Entregas este mês</span>
+          </div></div>
+        </div>
+        <div class="pgrid2">
+          <div class="pcard">
+            <div class="pcard-hd">
+              <div class="pcard-title"><div class="pcard-icon" style="background:#f0fdf4"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>Projetos ativos</div>
+              <button class="pbtn-add" onclick="popenNewProject()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Novo</button>
+            </div>
+            <div class="pcard-body" id="p-clients-list"><div class="pempty"><div class="pempty-icon">📁</div><p>Nenhum projeto criado ainda</p></div></div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-hd"><div class="pcard-title"><div class="pcard-icon" style="background:#fef9c3"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2.5" stroke-linecap="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>Atualizar projeto</div></div>
+            <div class="pcard-body pform-admin">
+              <label>Projeto</label>
+              <select id="pa-sel"><option value="">Selecione…</option></select>
+              <label>% Progresso</label>
+              <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+                <input type="range" id="pa-pct" min="0" max="100" value="0" style="flex:1;accent-color:var(--forest);border:none;padding:0;margin:0" oninput="document.getElementById('pa-pct-val').textContent=this.value+'%'"/>
+                <span id="pa-pct-val" style="font-size:.85rem;font-weight:700;color:var(--forest);min-width:36px">0%</span>
+              </div>
+              <label>Fase atual</label>
+              <select id="pa-phase">
+                <option>Visita técnica e medições</option><option>Aquisição de material</option>
+                <option>Fabricação / Execução</option><option>Instalação</option>
+                <option>Acabamento final</option><option>Entregue</option>
+              </select>
+              <label>Previsão de entrega</label>
+              <input type="date" id="pa-delivery"/>
+              <label>Mensagem para o cliente</label>
+              <textarea id="pa-note" placeholder="Atualize o cliente sobre o andamento…"></textarea>
+              <button class="pbtn-save" onclick="padminUpdate()">💾 Salvar e notificar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVO PROJETO -->
+<div class="pmodal-overlay" id="p-modal-np">
+  <div class="pmodal pform-admin">
+    <button class="pmodal-close" onclick="pcloseModal('p-modal-np')">×</button>
+    <div class="pmodal-title serif">Novo Projeto</div>
+    <label>Nome do cliente</label><input type="text" id="pnp-name" placeholder="João Silva"/>
+    <label>E-mail do cliente</label><input type="email" id="pnp-email" placeholder="joao@email.com"/>
+    <label>Serviço</label>
+    <select id="pnp-service">
+      <optgroup label="🪵 Carpintaria"><option>Deck</option><option>Pergolado</option><option>Telhado</option><option>Varanda</option><option>Painel ripado na parede</option><option>Painel ripado na fachada</option><option>Instalação de porta simples</option><option>Instalação de porta personalizada</option></optgroup>
+      <optgroup label="🧱 Alvenaria"><option>Alvenaria estrutural</option><option>Formas</option><option>Reboco</option><option>Instalação de pisos e azulejos</option><option>Pia de porcelanato</option><option>Efeito 3D na parede</option><option>Texturas</option></optgroup>
+      <option>Projeto completo</option>
+    </select>
+    <label>Cidade</label><input type="text" id="pnp-loc" placeholder="Gov. Valadares, MG"/>
+    <label>Previsão de entrega</label><input type="date" id="pnp-delivery"/>
+    <label>Valor total (R$)</label><input type="number" id="pnp-total" placeholder="8500"/>
+    <label>Observações</label><textarea id="pnp-notes" placeholder="Detalhes do projeto…"></textarea>
+    <button class="pbtn-save" onclick="pcreateProject()">✓ Criar projeto</button>
+  </div>
+</div>
+
+<div id="ptoast"></div>
+
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
+<script>
+/* ── FIREBASE CONFIG ─────────────────────────────────────────── */
+const P_CONFIG = {
+  apiKey:            "AIzaSyAQXXuMwGTYfG8B2JRs-dAwDKu51-3sMmA",
+  authDomain:        "cedro-3eb41.firebaseapp.com",
+  projectId:         "cedro-3eb41",
+  storageBucket:     "cedro-3eb41.firebasestorage.app",
+  messagingSenderId: "150881470312",
+  appId:             "1:150881470312:web:d89115d54685ce9eba78dd",
+};
+const P_ADMINS = ["admin@cedro.com","luiz.ztx@gmail.com"];
+
+/* ── STATE ───────────────────────────────────────────────────── */
+let pdb, pauth;
+let pUser = null, pIsAdmin = false;
+let pProjectId = null;
+let pUnsubMsgs = null, pUnsubProjects = null;
+let pAdminView = false;
+
+/* ── INIT ────────────────────────────────────────────────────── */
+function pinitFirebase() {
+  if (typeof firebase === "undefined") return;
+  try {
+    // Reuse existing Firebase app if already initialized
+    firebase.app("portal-cedro");
+  } catch(e) {
+    firebase.initializeApp(P_CONFIG, "portal-cedro");
+  }
+  const app = firebase.app("portal-cedro");
+  pdb   = firebase.firestore(app);
+  pauth = firebase.auth(app);
+  pauth.onAuthStateChanged(async user => {
+    if (user) {
+      pUser    = user;
+      pIsAdmin = P_ADMINS.includes(user.email);
+      await pensureUserDoc(user);
+      penterPortal(user);
+    } else {
+      pUser = null;
+      pshowScreen("login");
+      pel("p-av").style.display       = "none";
+      pel("p-uname").style.display    = "none";
+      pel("p-logout-btn").style.display = "none";
+      pel("p-view-toggle").style.display = "none";
+    }
+  });
+}
+
+/* ── OVERLAY OPEN / CLOSE ────────────────────────────────────── */
+function openPortal() {
+  document.getElementById("portal-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  pinitFirebase();
+}
+function closePortal() {
+  document.getElementById("portal-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+/* ── HELPERS ─────────────────────────────────────────────────── */
+const pel = id => document.getElementById(id);
+const pnow = () => new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+function pshowScreen(s) {
+  ["pscreen-login","pscreen-dash"].forEach(id => {
+    pel(id).classList.remove("active");
+    pel(id).style.display = "none";
+  });
+  const el = pel("pscreen-" + s);
+  if (el) { el.style.display = "block"; el.classList.add("active"); }
+}
+function ptoast(msg) {
+  const el = pel("ptoast");
+  el.textContent = msg; el.style.opacity="1"; el.style.transform="translateX(-50%) translateY(0)";
+  clearTimeout(pel("ptoast")._t);
+  pel("ptoast")._t = setTimeout(() => { el.style.opacity="0"; el.style.transform="translateX(-50%) translateY(20px)"; }, 2800);
+}
+function pshowErr(msg) {
+  const el = pel("p-err");
+  if (el) { el.textContent = msg; setTimeout(() => el.textContent="", 4000); }
+}
+function psetTab(t) {
+  ["google","email"].forEach(x => {
+    pel("ptab-"+x).classList.toggle("active", x===t);
+    pel("ppane-"+x).style.display = x===t ? "block" : "none";
+  });
+}
+function pformatBRL(v) { return new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v||0); }
+
+/* ── AUTH ────────────────────────────────────────────────────── */
+function ploginGoogle() {
+  if (!pauth) { ptoast("⚠ Firebase não carregado"); return; }
+  const provider = new firebase.auth.GoogleAuthProvider();
+  pauth.signInWithPopup(provider).catch(e => pshowErr(e.message));
+}
+function ploginEmail() {
+  if (!pauth) { ptoast("⚠ Firebase não carregado"); return; }
+  const email = pel("p-email").value.trim();
+  const pass  = pel("p-pass").value;
+  if (!email||!pass) { pshowErr("Preencha e-mail e senha"); return; }
+  pauth.signInWithEmailAndPassword(email, pass).catch(e => {
+    const m = {"auth/user-not-found":"E-mail não encontrado.","auth/wrong-password":"Senha incorreta.","auth/invalid-email":"E-mail inválido."};
+    pshowErr(m[e.code]||e.message);
+  });
+}
+function presetPwd() {
+  const email = pel("p-email").value.trim();
+  if (!email) { pshowErr("Digite seu e-mail primeiro"); return; }
+  pauth.sendPasswordResetEmail(email).then(() => ptoast("✉️ E-mail de redefinição enviado")).catch(e => pshowErr(e.message));
+}
+function plogout() {
+  if (pUnsubMsgs)    { pUnsubMsgs(); pUnsubMsgs = null; }
+  if (pUnsubProjects){ pUnsubProjects(); pUnsubProjects = null; }
+  if (pauth) pauth.signOut();
+}
+async function pensureUserDoc(user) {
+  const ref = pdb.collection("users").doc(user.uid);
+  const snap = await ref.get();
+  if (!snap.exists) await ref.set({ name: user.displayName||user.email.split("@")[0], email:user.email, role:P_ADMINS.includes(user.email)?"admin":"client", createdAt:firebase.firestore.FieldValue.serverTimestamp() });
+}
+
+/* ── ENTER PORTAL ────────────────────────────────────────────── */
+function penterPortal(user) {
+  const name = user.displayName||user.email.split("@")[0];
+  const ini  = name.split(" ").map(w=>w[0]).join("").substring(0,2).toUpperCase();
+  pel("p-av").textContent = ini; pel("p-av").style.display = "flex";
+  pel("p-uname").textContent = name; pel("p-uname").style.display = "inline";
+  pel("p-logout-btn").style.display = "inline";
+  pel("p-view-toggle").style.display = pIsAdmin ? "inline" : "none";
+  pel("p-view-toggle").textContent = "Ver como Admin";
+  pshowScreen("dash");
+  pIsAdmin ? pshowAdminView() : ploadClientView(user.uid);
+}
+
+/* ── CLIENT VIEW ─────────────────────────────────────────────── */
+async function ploadClientView(uid) {
+  pel("pview-client").style.display = "block";
+  pel("pview-admin").style.display  = "none";
+  const snap = await pdb.collection("projects").where("clientId","==",uid).orderBy("updatedAt","desc").limit(1).get();
+  if (snap.empty) { pel("pw-name").textContent = pUser.displayName||"Cliente"; pel("pw-project").textContent = "Nenhum projeto ativo no momento"; return; }
+  const doc = snap.docs[0];
+  pProjectId = doc.id;
+  prenderClientDash(doc.id, doc.data());
+  plistenMsgs(doc.id);
+}
+function prenderClientDash(pid, d) {
+  const pct = d.progress||0;
+  pel("pw-name").textContent    = d.clientName||"—";
+  pel("pw-project").textContent = (d.service||"—") + (d.location?" · "+d.location:"");
+  pel("pw-pct").textContent     = pct+"%";
+  pel("pw-fill").style.width    = pct+"%";
+  const phases = d.phases||[];
+  pel("pst-phases").textContent = phases.filter(p=>p.progress>=100).length+"/"+(phases.length||"—");
+  const del = d.deliveryDate ? new Date(d.deliveryDate.seconds?d.deliveryDate.seconds*1000:d.deliveryDate) : null;
+  if (del) {
+    pel("pst-delivery").textContent = del.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"});
+    const diff = Math.ceil((del-Date.now())/86400000);
+    pel("pst-days").textContent = diff>0?diff+" dias":"Entregue";
+  }
+  prenderQuote(d.quote);
+  prenderTimeline(d.timeline||[]);
+  prenderPhases(d.phases||[]);
+  pel("p-ph-badge").textContent = pct+"% geral";
+}
+function prenderQuote(q) {
+  const el = pel("p-quote-items"); if (!q) return;
+  el.innerHTML = (q.items||[]).map(i=>`<div class="pq-row"><span class="pq-lbl">${i.description}</span><span class="pq-val">${pformatBRL(i.price)}</span></div>`).join("") +
+    `<div class="pq-row"><span class="pq-lbl">Total</span><span class="pq-val pq-total">${pformatBRL(q.total)}</span></div>`;
+}
+function prenderTimeline(tl) {
+  const el = pel("p-timeline-items"); if (!tl.length) return;
+  el.innerHTML = '<div class="ptl">' + tl.map(t=>`<div class="ptl-item"><div class="ptl-dot ${t.status==="done"?"ptl-done":t.status==="active"?"ptl-active":"ptl-next"}">${t.status==="done"?"✓":t.status==="active"?"▶":"○"}</div><div class="ptl-content"><div class="ptl-ttl">${t.title}</div><div class="ptl-date">${t.date||""}</div>${t.note?`<div class="ptl-note">${t.note}</div>`:""}</div></div>`).join("") + "</div>";
+}
+function prenderPhases(phases) {
+  const el = pel("p-phases-list"); if (!phases.length) return;
+  const bc = p => p>=100?"pbar-g":p>0?"pbar-f":"pbar-e";
+  el.innerHTML = phases.map(p=>`<div><div class="pph-top"><span class="pph-name">${p.name}</span><span class="pph-pct">${p.progress||0}%</span></div><div class="pph-bg"><div class="pph-bar ${bc(p.progress||0)}" style="width:${p.progress||0}%"></div></div></div>`).join("");
+}
+
+/* ── MESSAGES ────────────────────────────────────────────────── */
+function plistenMsgs(pid) {
+  if (pUnsubMsgs) pUnsubMsgs();
+  pUnsubMsgs = pdb.collection("projects").doc(pid).collection("messages").orderBy("createdAt").onSnapshot(snap => {
+    const el = pel("p-msgs-list");
+    if (snap.empty) { el.innerHTML='<div class="pempty"><div class="pempty-icon">💬</div><p>Nenhuma mensagem ainda</p></div>'; return; }
+    el.innerHTML = snap.docs.map(d => {
+      const m = d.data();
+      const isMe = m.senderId === pUser?.uid;
+      const time = m.createdAt ? new Date(m.createdAt.seconds*1000).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) : "";
+      return `<div class="pmsg ${isMe?"pmsg-client":"pmsg-admin"}"><div class="pmsg-from"><span class="${isMe?"":"pmsg-fname"}">${m.senderName}</span><span>${time}</span></div>${m.content}</div>`;
+    }).join("");
+    el.scrollTop = el.scrollHeight;
+  });
+}
+async function psendMsg() {
+  const inp = pel("p-msg-inp"); const txt = inp.value.trim();
+  if (!txt||!pProjectId||!pdb) return;
+  inp.value = "";
+  await pdb.collection("projects").doc(pProjectId).collection("messages").add({
+    senderId: pUser.uid, senderName: pUser.displayName||pUser.email.split("@")[0],
+    senderRole: pIsAdmin?"admin":"client", content: txt,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(), read: false,
+  });
+}
+
+/* ── ADMIN VIEW ──────────────────────────────────────────────── */
+function pshowAdminView() {
+  pel("pview-client").style.display = "none";
+  pel("pview-admin").style.display  = "block";
+  if (!pdb) return;
+  if (pUnsubProjects) pUnsubProjects();
+  pUnsubProjects = pdb.collection("projects").orderBy("updatedAt","desc").onSnapshot(snap => {
+    pel("pa-projects").textContent = snap.size;
+    const list = pel("p-clients-list"); const sel = pel("pa-sel");
+    if (snap.empty) { list.innerHTML='<div class="pempty"><div class="pempty-icon">📁</div><p>Nenhum projeto ainda</p></div>'; sel.innerHTML="<option>Nenhum</option>"; return; }
+    const colors = ["#1a3c34","#7c3aed","#0284c7","#dc2626","#d97706"];
+    list.innerHTML = snap.docs.map((d,i) => {
+      const p = d.data(); const pct = p.progress||0;
+      const cls = pct>=100?"pbg-green":pct>60?"pbg-blue":pct>0?"pbg-amber":"pbg-gray";
+      return `<div class="pclient-row" onclick="pselectProject('${d.id}','${(p.clientName||"?").replace(/'/g,"\'")}',${pct})"><div class="pclient-av" style="background:${colors[i%colors.length]}">${(p.clientName||"?").substring(0,2).toUpperCase()}</div><div><div class="pclient-name">${p.clientName||"—"}</div><div class="pclient-svc">${p.service||""}</div></div><span class="pbadge ppct-pill ${cls}">${pct}%</span></div>`;
+    }).join("");
+    sel.innerHTML = "<option value=''>Selecione…</option>" + snap.docs.map(d=>`<option value="${d.id}">${d.data().clientName||"—"} — ${d.data().service||""}</option>`).join("");
+    const now = new Date();
+    pel("pa-due").textContent = snap.docs.filter(d=>{const del=d.data().deliveryDate;if(!del)return false;const dt=new Date(del.seconds?del.seconds*1000:del);return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();}).length;
+  });
+}
+function pselectProject(pid, name, pct) {
+  pel("pa-sel").value=pid; pel("pa-pct").value=pct; pel("pa-pct-val").textContent=pct+"%";
+  pProjectId=pid; ptoast("Editando: "+name); plistenMsgs(pid);
+}
+async function padminUpdate() {
+  const pid=pel("pa-sel").value; if (!pid||!pdb) { ptoast("⚠ Selecione um projeto"); return; }
+  const pct=Number(pel("pa-pct").value); const phase=pel("pa-phase").value;
+  const deliv=pel("pa-delivery").value; const note=pel("pa-note").value.trim();
+  const upd={progress:pct,currentPhase:phase,updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  if (deliv) upd.deliveryDate=new Date(deliv);
+  await pdb.collection("projects").doc(pid).update(upd);
+  if (note) {
+    await pdb.collection("projects").doc(pid).collection("messages").add({senderId:pUser.uid,senderName:pUser.displayName||"CEDRO",senderRole:"admin",content:note,createdAt:firebase.firestore.FieldValue.serverTimestamp(),read:false});
+    pel("pa-note").value="";
+  }
+  ptoast("✓ Projeto atualizado");
+}
+async function pcreateProject() {
+  const name=pel("pnp-name").value.trim(); const svc=pel("pnp-service").value;
+  if (!name||!svc) { ptoast("⚠ Nome e serviço obrigatórios"); return; }
+  const data = {clientName:name,clientEmail:pel("pnp-email").value.trim(),clientId:"",service:svc,location:pel("pnp-loc").value.trim(),progress:0,currentPhase:"Visita técnica e medições",status:"active",quote:{items:[],total:Number(pel("pnp-total").value)||0},timeline:[{title:"Visita técnica",status:"active",date:"",note:""},{title:"Aprovação do orçamento",status:"next",date:"",note:""},{title:"Aquisição de material",status:"next",date:"",note:""},{title:"Execução",status:"next",date:"",note:""},{title:"Entrega",status:"next",date:"",note:""}],phases:[{name:"Visita e medições",progress:0},{name:"Aquisição",progress:0},{name:"Execução",progress:0},{name:"Instalação",progress:0},{name:"Acabamento",progress:0}],notes:pel("pnp-notes").value,createdAt:firebase.firestore.FieldValue.serverTimestamp(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+  if (pel("pnp-delivery").value) data.deliveryDate=new Date(pel("pnp-delivery").value);
+  await pdb.collection("projects").add(data);
+  pcloseModal("p-modal-np"); ptoast("✓ Projeto de "+name+" criado");
+  ["pnp-name","pnp-email","pnp-loc","pnp-total","pnp-notes","pnp-delivery"].forEach(id=>pel(id).value="");
+}
+
+/* ── TOGGLE VIEW ─────────────────────────────────────────────── */
+function ptoggleView() {
+  pAdminView = !pAdminView;
+  pel("p-view-toggle").textContent = pAdminView?"Ver como Cliente":"Ver como Admin";
+  if (pAdminView) pshowAdminView();
+  else { pel("pview-client").style.display="block"; pel("pview-admin").style.display="none"; if(pUser)ploadClientView(pUser.uid); }
+  ptoast(pAdminView?"🔧 Modo administrador":"👤 Modo cliente");
+}
+
+/* ── MODALS ──────────────────────────────────────────────────── */
+function popenNewProject() { pel("p-modal-np").classList.add("active"); }
+function pcloseModal(id)   { pel(id).classList.remove("active"); }
+document.querySelectorAll(".pmodal-overlay").forEach(o => o.addEventListener("click", e => { if(e.target===o) o.classList.remove("active"); }));
+
+/* ── ESC KEY ─────────────────────────────────────────────────── */
+document.addEventListener("keydown", e => { if(e.key==="Escape") closePortal(); });
+</script>
+
+</body>
+</html>
